@@ -3,7 +3,8 @@ import sys
 
 # Dictionary mapping barcodes to video file paths
 barcode_to_video = {
-    "walk": "/vids/walk.mp4"
+    "walk": "./vids/walk.mp4"
+    
  
     # Add more barcodes and corresponding video paths here
 }
