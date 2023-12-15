@@ -24,7 +24,7 @@ def start_video():
 # Create a Tkinter window
 root = tk.Tk()
 root.title("VLC Media Player")
-root.geometry("800x600")
+root.geometry("800x480")
 
 # Create a VLC player
 player = vlc.Instance()
