@@ -16,11 +16,12 @@ media = player.media_new(video_path)
 # Set the media player media
 media_player.set_media(media)
 
+# Play the video
+media_player.play()
+
 # Set to full screen
 media_player.set_fullscreen(True)
 
-# Play the video
-media_player.play()
 
 # Wait for the video to finish
 time.sleep(1)  # Wait for it to start playing
