@@ -1,36 +1,25 @@
 import vlc
-import sys
+import time
 
-# Dictionary mapping barcodes to video file paths
-barcode_to_video = {
-    "walk": "./vids/walk.mp4"
-    
- 
-    # Add more barcodes and corresponding video paths here
-}
+# Ask the user to input the path of the video file
+video_path = "./vids/"+ input("filename: ") + ".mp4" 
 
-def play_video(video_path):
-    """ Play video at the given path """
-    player = vlc.MediaPlayer(video_path)
-    player.set_fullscreen(True)
-    player.play()
-    while player.is_playing():
-        pass
-    player.stop()
+# Create a VLC instance
+player = vlc.Instance()
 
-def main():
-    try:
-        while True:
-            barcode = input("Scan barcode: ")
-            video_path = barcode_to_video.get(barcode)
-            if video_path:
-                print(f"Playing video for barcode {barcode}")
-                play_video(video_path)
-            else:
-                print("No video found for this barcode.")
-    except KeyboardInterrupt:
-        print("Program exited.")
-        sys.exit()
+# Create a new player
+media_player = player.media_player_new()
 
-if __name__ == "__main__":
-    main()
+# Load the media file
+media = player.media_new(video_path)
+
+# Set the media player media
+media_player.set_media(media)
+
+# Play the video
+media_player.play()
+
+# Wait for the video to finish
+time.sleep(1)  # Wait for it to start playing
+duration = media_player.get_length() / 1000  # Duration in seconds
+time.sleep(duration)
