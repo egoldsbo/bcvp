@@ -1,29 +1,39 @@
 import vlc
 import time
 
-# Ask the user to input the path of the video file
-video_path = "./vids/"+ input("filename: ") + ".mp4" 
+def play_video(video_path):
+    # Create a VLC instance
+    player = vlc.Instance()
 
-# Create a VLC instance
-player = vlc.Instance()
+    # Create a new player
+    media_player = player.media_player_new()
 
-# Create a new player
-media_player = player.media_player_new()
+    # Load the media file
+    media = player.media_new(video_path)
 
-# Load the media file
-media = player.media_new(video_path)
+    # Set the media player media
+    media_player.set_media(media)
 
-# Set the media player media
-media_player.set_media(media)
+    # Play the video
+    media_player.play()
 
-# Play the video
-media_player.play()
+    media_player.video_set_scale(0) 
 
-# Set to full screen
-media_player.set_fullscreen(True)
+    # Set to full screen
+    media_player.set_fullscreen(True)
+
+    # Wait for the video to finish
+    while media_player.get_state() != vlc.State.Ended:
+        time.sleep(1)
 
 
-# Wait for the video to finish
-time.sleep(1)  # Wait for it to start playing
-duration = media_player.get_length() / 1000  # Duration in seconds
-time.sleep(duration)
+  
+
+while True:
+    # Ask the user to input the path of the video file
+    video_path = input("Enter the path of the video file (or type 'exit' to quit): ")
+    
+    if video_path.lower() == 'exit':
+        break
+    
+    play_video(video_path)
