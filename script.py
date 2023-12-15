@@ -16,6 +16,9 @@ media = player.media_new(video_path)
 # Set the media player media
 media_player.set_media(media)
 
+# Set to full screen
+media_player.set_fullscreen(True)
+
 # Play the video
 media_player.play()
 
