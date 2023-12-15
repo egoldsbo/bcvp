@@ -17,17 +17,16 @@ def play_video(video_path):
     # Play the video
     media_player.play()
 
-    media_player.video_set_scale(0) 
+   # Set the width and height
+    width, height = 800, 480
+    media_player.video_set_scale(0)  # Disable default scaling
+    media_player.video_set_size(width, height)
 
-    # Set to full screen
-    media_player.set_fullscreen(True)
 
     # Wait for the video to finish
     while media_player.get_state() != vlc.State.Ended:
         time.sleep(1)
 
-
-  
 
 while True:
     # Ask the user to input the path of the video file
