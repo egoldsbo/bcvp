@@ -31,7 +31,7 @@ def play_video(video_path):
 
 while True:
     # Ask the user to input the path of the video file
-    video_path = input("Enter the path of the video file (or type 'exit' to quit): ")
+    video_path = "./vids/"+input("filename (or type 'exit' to quit): ")+".mp4"
     
     if video_path.lower() == 'exit':
         break
