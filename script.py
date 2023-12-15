@@ -16,10 +16,16 @@ def play_video(video_path, media_player):
     while media_player.get_state() != vlc.State.Ended:
         time.sleep(1)
 
-def start_video():
-    filename = entry.get()
-    video_path = "./vids/" + filename + ".mp4"
-    play_video(video_path, media_player)
+def on_key_press(event):
+    global typed_filename
+    if event.keysym == 'Return':
+        video_path = "./vids/" + typed_filename + ".mp4"
+        play_video(video_path, media_player)
+        typed_filename = ''  # Reset the filename after playing
+    elif event.keysym == 'BackSpace':
+        typed_filename = typed_filename[:-1]
+    else:
+        typed_filename += event.char
 
 # Create a Tkinter window
 root = tk.Tk()
@@ -37,12 +43,10 @@ video_frame.pack(fill=tk.BOTH, expand=True)
 # Set the VLC player's drawable to the frame's window ID
 media_player.set_xwindow(video_frame.winfo_id())
 
-# Entry widget for video filename
-entry = tk.Entry(root)
-entry.pack(side=tk.BOTTOM, fill=tk.X, padx=10, pady=10)
+# Initialize a variable to store typed filename
+typed_filename = ''
 
-# Play button
-play_button = tk.Button(root, text="Play Video", command=start_video)
-play_button.pack(side=tk.BOTTOM)
+# Bind key press event
+root.bind('<KeyPress>', on_key_press)
 
 root.mainloop()
