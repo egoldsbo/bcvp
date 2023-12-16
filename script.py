@@ -41,9 +41,6 @@ def play_video(video_path):
     # Execute the command and wait for it to finish
     subprocess.run(play_command)
 
-    # Reset the timer after video is played
-    display_timer.reset_timer()
-
 # Directory where the video files are stored
 video_directory = './vids/'
 
@@ -67,6 +64,8 @@ while True:
         print("Video file not found. Please try again.")
     else:
         play_video(video_file_path)
+        # Reset the timer after video is played
+        display_timer.reset_timer()
 
 # Ensure display is on before the script ends
 turn_on_display()
