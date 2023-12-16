@@ -21,7 +21,7 @@ video_height = 480 # Example height
 
 # Desired window position
 x_position = -100  # Example X coordinate
-y_position = -100  # Example Y coordinate
+y_position = -500  # Example Y coordinate
 
 # Directory where the video files are stored
 video_directory = './vids/'
