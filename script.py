@@ -8,7 +8,7 @@ def play_video(video_path):
     # Execute the command and wait for it to finish
     subprocess.run(play_command)
 
-    subprocess.run(['wmctrl', '-a', 'egoldsbo@raspberrypi: ~/bcvp'])
+    # subprocess.run(['wmctrl', '-a', 'egoldsbo@raspberrypi: ~/bcvp'])
 
 # Directory where the video files are stored
 video_directory = './vids/'
