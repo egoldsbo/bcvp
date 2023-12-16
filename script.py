@@ -11,7 +11,7 @@ def play_video(video_path):
     # subprocess.run(['wmctrl', '-a', 'egoldsbo@raspberrypi: ~/bcvp'])
 
 # Directory where the video files are stored
-video_directory = './vids/'
+video_directory = '/media/egoldsbo/USB Drive/vids/'
 
 while True:
     # Prompt the user to enter the name of the video file
