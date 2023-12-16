@@ -3,9 +3,9 @@ import os
 
 def play_video(video_path):
     # Command to play video using FFmpeg
-    play_command = ['ffplay', '-fs', video_path]
-
-    # Execute the command
+    # The '-autoexit' flag is added to ensure ffplay closes after the video ends
+    play_command = ['ffplay', '-x', str(800), '-y', str(480), '-autoexit', video_path]
+    # Execute the command and wait for it to finish
     subprocess.run(play_command)
 
 # Directory where the video files are stored
@@ -27,3 +27,6 @@ while True:
         print("Video file not found. Please try again.")
     else:
         play_video(video_file_path)
+
+    # Refocus to the terminal (optional)
+    # subprocess.run(['wmctrl', '-a', 'Terminal']) # Uncomment if window manager supports it
