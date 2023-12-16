@@ -1,27 +1,14 @@
 import subprocess
 import os
 
-def play_video(video_path, width, height, x_position, y_position):
-    # Command to play video using FFmpeg
-    play_command = [
-        'ffplay', 
-        '-x', str(width), 
-        '-y', str(height), 
-        '-autoexit', 
-        '-left', str(x_position), 
-        '-top', str(y_position), 
-        video_path
-    ]
+def play_video(video_path):
+    # Command to play video using FFmpeg in fullscreen mode
+    play_command = ['ffplay', '-fs', '-autoexit', video_path]
 
     # Execute the command and wait for it to finish
     subprocess.run(play_command)
 
-video_width = 800  # Example width
-video_height = 480 # Example height
-
-# Desired window position
-x_position = 200  # Example X coordinate
-y_position = 1  # Example Y coordinate
+    subprocess.run(['wmctrl', '-a', 'egoldsbo@raspberrypi: ~/bcvp'])
 
 # Directory where the video files are stored
 video_directory = './vids/'
@@ -41,7 +28,7 @@ while True:
     if not os.path.exists(video_file_path):
         print("Video file not found. Please try again.")
     else:
-        play_video(video_file_path, video_width, video_height, x_position, y_position)
+        play_video(video_file_path)
 
     # Refocus to the terminal (optional)
     # subprocess.run(['wmctrl', '-a', 'Terminal']) # Uncomment if window manager supports it
