@@ -11,3 +11,7 @@ def turn_on_hdmi():
 turn_off_hdmi()
 time.sleep(5)  # Waits for 5 seconds
 turn_on_hdmi()
+time.sleep(5)
+turn_off_hdmi()
+time.sleep(5)
+turn_on_hdmi()
