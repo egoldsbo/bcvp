@@ -2,10 +2,10 @@ import subprocess
 import time
 
 def turn_off_hdmi():
-    subprocess.call('vcgencmd display_power 0', shell=True)
+    subprocess.call('rpi-hdmi off', shell=True)
 
 def turn_on_hdmi():
-    subprocess.call('vcgencmd display_power 1', shell=True)
+    subprocess.call('rpi-hdmi off', shell=True)
 
 # Example usage
 turn_off_hdmi()
