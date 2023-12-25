@@ -28,7 +28,7 @@ def shutdown_pi():
     subprocess.run(['sudo', 'shutdown', 'now'])
 
 # Directory where the video files are stored
-video_directory = '/media/egoldsbo/USB Drive/vids/'
+video_directory = './vids/'
 
 # Start the shutdown timer
 shutdown_timer = threading.Timer(inactivity_limit, shutdown_pi)
