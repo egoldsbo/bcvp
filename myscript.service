@@ -1,0 +1,8 @@
+[Unit]
+Description=My Script Service
+
+[Service]
+ExecStart=/usr/bin/python3 /bcvp/script.py
+
+[Install]
+WantedBy=multi-user.target
