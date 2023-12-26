@@ -1,8 +1,10 @@
 [Unit]
 Description=My Script Service
+After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 /bcvp/script.py
+Type=simple
+ExecStart=/usr/bin/python3 /home/egoldsbo/bcvp/script.py
 
 [Install]
 WantedBy=multi-user.target
