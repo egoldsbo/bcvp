@@ -1,0 +1,30 @@
+git clone https://github.com/buildroot/buildroot.git
+cd buildroot
+make raspberrypizero2w_defconfig
+make all
+
+
+if works try:
+
+//create 'rootfs-overlay' folder in buildroot directory
+//add 'bcvp' to /rootfs-overlay/usr/bin/
+add startupscript to /etc/init.d/startup_script
+
+make menuconfig
+
+System configuration>Root filesystem overlay directories. 
+Add the path to your rootfs-overlay directory here.
+
+
+
+//add-> 
+git, 
+python3, 
+ffmpeg, 
+wpa_supplicant (enable autoscan install wpapassphrase binary, enable support for Dbus)
+check to make sure rpi firmware, correct archetecture for raspberrypizero2w_defconfig
+
+
+
+
+then meny
