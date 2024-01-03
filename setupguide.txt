@@ -1,0 +1,38 @@
+on raspberry pi
+if configuring for raspberry pi zero 2 w:
+after writing raspian os lite 32bit, go to sd card, and add
+video=HDMI-A-1:1920x1080M@60,rotate=0
+to the begining of cmdline.txt
+
+install dependencies and clone project:
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install git
+git clone https://github.com/egoldsbo/bcvp.git
+cd bcvp
+sudo apt-get install ffmpeg
+sudo apt-get install libegl1-mesa libgles2-mesa
+
+
+autologin:
+sudo mkdir -p /etc/systemd/system/getty@tty1.service.d
+sudo nano /etc/systemd/system/getty@tty1.service.d/override.conf
+[Service]
+ExecStart=
+ExecStart=-/sbin/agetty --autologin your_username --noclear %I 38400 linux
+
+sudo systemctl daemon-reload
+sudo systemctl restart getty@tty1.service
+
+
+script on startup:
+nano /home/egoldsbo/startup.sh
+
+#!/bin/bash
+/bin/bash --login -i -c 'cd /path/to/bcvp && python3 script.py'
+
+chmod +x /home/egoldsbo/startup.sh
+crontab -e
+@reboot /home/egoldsbo/startup.sh
+
+
