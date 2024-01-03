@@ -17,14 +17,13 @@ Add the path to your rootfs-overlay directory here.
 
 
 
-//add-> 
+also in menuconfig add-> 
 git, 
 python3, 
 ffmpeg, 
 wpa_supplicant (enable autoscan install wpapassphrase binary, enable support for Dbus)
 check to make sure rpi firmware, correct archetecture for raspberrypizero2w_defconfig
 
+then run: make
 
-
-
-then meny
+(todo: how setupwifi?)
