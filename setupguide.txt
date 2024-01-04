@@ -31,6 +31,20 @@ add: source /home/pi/bcvp/startupscript.sh
 sudo chmod +x /home/pi/bcvp/startupscript.sh
 sudo chmod +x /home/pi/bcvp/script.py
 
+barcode setup:
+014207 sounds off
+013304 continous scan mode
+
+todo: set up wifi script.
+add more vids
+make cards
+add more vids
+storybook mode?
+add "again button"
+power on/off relay?
+
+
+
 
 
 
