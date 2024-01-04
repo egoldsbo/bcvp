@@ -11,7 +11,7 @@ sudo apt-get install git
 git clone https://github.com/egoldsbo/bcvp.git
 cd bcvp
 sudo apt-get install mpv
-?? sudo apt-get install libegl1-mesa libgles2-mesa
+
 
 
 autologin:
