@@ -2,5 +2,5 @@
 echo "Hello World"
 cd /home/pi/bcvp
 git stash
-git pull
+sudo git pull
 python3 script.py
