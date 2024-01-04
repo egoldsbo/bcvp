@@ -11,7 +11,7 @@ def play_video(video_path):
     subprocess.run(play_command)
 
 # Directory where the video files are stored
-video_directory = '/home/egoldsbo/bcvp/vids/'
+video_directory = '/home/pi/bcvp/vids/'
 
 while True:
     # Prompt the user to enter the name of the video file
