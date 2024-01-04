@@ -26,13 +26,13 @@ sudo systemctl restart getty@tty1.service
 
 
 script on startup:
-nano /home/pi/startup.sh
+sudo nano ~/.bashrc
+add: /home/pi/bcvp/startupscript.sh
+sudo chmod +x /home/pi/bcvp/startupscript.sh
+
 
 #!/bin/bash
 /bin/bash --login -i -c 'cd /path/to/bcvp && python3 script.py'
 
-chmod +x /home/pi/startup.sh
-crontab -e
-@reboot /home/pi/startup.sh
 
 
