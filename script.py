@@ -22,8 +22,8 @@ def play_video_from_memory(video_data, video_name):
     with open(temp_video_path, 'wb') as temp_video_file:
         temp_video_file.write(video_data)
 
-    # Command to play video using FFmpeg in fullscreen mode
-    play_command = ['mpv','--no-audio', temp_video_path]
+    # Command to play video using VLC
+    play_command = ['cvlc', '--play-and-exit', '--no-audio', temp_video_path]
 
     # Execute the command and wait for it to finish
     subprocess.run(play_command)
