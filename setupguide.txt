@@ -1,17 +1,17 @@
 on raspberry pi
 if configuring for raspberry pi zero 2 w:
 after writing raspian os lite 32bit, go to sd card, and add
-video=HDMI-A-1:1920x1080M@60,rotate=0
+video=HDMI-A-1:800x480M@24,rotate=0
 to the begining of cmdline.txt
 
 install dependencies and clone project:
-sudo apt-get update
-sudo apt-get upgrade
+sudo apt update
+sudo apt full-upgrade
 sudo apt-get install git
 git clone https://github.com/egoldsbo/bcvp.git
 cd bcvp
-sudo apt-get install ffmpeg
-sudo apt-get install libegl1-mesa libgles2-mesa
+sudo apt-get install mpv
+?? sudo apt-get install libegl1-mesa libgles2-mesa
 
 
 autologin:
@@ -26,13 +26,13 @@ sudo systemctl restart getty@tty1.service
 
 
 script on startup:
-nano /home/egoldsbo/startup.sh
+nano /home/pi/startup.sh
 
 #!/bin/bash
 /bin/bash --login -i -c 'cd /path/to/bcvp && python3 script.py'
 
-chmod +x /home/egoldsbo/startup.sh
+chmod +x /home/pi/startup.sh
 crontab -e
-@reboot /home/egoldsbo/startup.sh
+@reboot /home/pi/startup.sh
 
 
