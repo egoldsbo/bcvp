@@ -23,7 +23,7 @@ def play_video_from_memory(video_data, video_name):
         temp_video_file.write(video_data)
 
     # Command to play video using FFmpeg in fullscreen mode
-    play_command = ['mpv', temp_video_path]
+    play_command = ['mpv','--no-audio', temp_video_path]
 
     # Execute the command and wait for it to finish
     subprocess.run(play_command)
