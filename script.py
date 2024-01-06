@@ -1,6 +1,8 @@
 import subprocess
 import os
 
+subprocess.run(['git', 'pull'])
+
 def play_video(video_path):
     # Command to play video using FFmpeg in fullscreen mode
     play_command = ['cvlc', '--no-audio', '--play-and-exit', video_path]
