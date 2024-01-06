@@ -35,7 +35,7 @@ while True:
         break
 
     # Check if the user wants to run 'git pull'
-    if video_file_name.lower() == 'gitupdate':
+    if video_file_name.lower() == 'git':
         # Run 'git pull' command
         subprocess.run(['git', 'pull'])
         # Exit the loop
