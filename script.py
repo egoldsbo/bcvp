@@ -8,6 +8,8 @@ def play_video(video_path):
                     '--fullscreen', 
                     '--avcodec-hw=none',  # Disable hardware acceleration
                     '--file-caching=300',  # Adjust file caching
+                    '--ffmpeg-hw',  # Enable hardware decoding
+                    '--play-and-exit',
                     video_path]
 
     # Execute the command and wait for it to finish
