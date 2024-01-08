@@ -9,7 +9,7 @@ def play_video(video_path):
     subprocess.run(play_command)
 
 # Directory where the video files are stored
-    #changehere
+   
 video_directory = '/home/pi/bcvp/vids/'
 
 while True:
