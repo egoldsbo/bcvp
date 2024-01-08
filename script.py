@@ -8,7 +8,7 @@ def play_video(video_path):
                     '--no-audio', 
                     '--fullscreen', 
                     '--avcodec-hw=none',  # Disable hardware acceleration
-                    '--file-caching=300',  # Adjust file caching  # Enable hardware decoding
+                    '--file-caching=300',  # Adjust file caching
                     '--play-and-exit',
                     video_path]
 
@@ -16,30 +16,38 @@ def play_video(video_path):
     subprocess.run(play_command)
 
 # Directory where the video files are stored
-   
 video_directory = '/home/pi/bcvp/vids/'
 
+# Flag to indicate if a video is playing
+video_playing = False
+
 while True:
-    # Prompt the user to enter the name of the video file
-    video_file_name = input("Enter the name of the video file to play, 'git' to update, or 'exit' to quit: ")
+    # Check if a video is not playing
+    if not video_playing:
+        # Prompt the user to enter the name of the video file
+        video_file_name = input("Enter the name of the video file to play, 'git' to update, or 'exit' to quit: ")
 
-    # Check if the user wants to exit the program
-    if video_file_name.lower() == 'exit':
-        break
+        # Check if the user wants to exit the program
+        if video_file_name.lower() == 'exit':
+            break
 
-    # Check if the user wants to run 'git pull'
-    elif video_file_name.lower() == 'git':
-        # Run 'git pull' command
-        subprocess.run(['sudo','git', 'stash'])
-        subprocess.run(['sudo','git', 'pull'])
-        subprocess.run(['sudo','chmod','+x','/home/pi/bcvp/startupscript.sh'])
-        subprocess.run(['sudo','chmod','+x','/home/pi/bcvp/script.py'])
-    else:
-        # Full path to the video file
-        video_file_path = os.path.join(video_directory, video_file_name) + '.mp4'
-
-        # Check if the file exists
-        if not os.path.exists(video_file_path):
-            print("Video file not found. Please try again.")
+        # Check if the user wants to run 'git pull'
+        elif video_file_name.lower() == 'git':
+            subprocess.run(['sudo', 'git', 'stash'])
+            subprocess.run(['sudo', 'git', 'pull'])
+            subprocess.run(['sudo', 'chmod', '+x', '/home/pi/bcvp/startupscript.sh'])
+            subprocess.run(['sudo', 'chmod', '+x', '/home/pi/bcvp/script.py'])
+        
         else:
-            play_video(video_file_path)
+            # Full path to the video file
+            video_file_path = os.path.join(video_directory, video_file_name) + '.mp4'
+
+            # Check if the file exists
+            if not os.path.exists(video_file_path):
+                print("Video file not found. Please try again.")
+            else:
+                # Set the flag to True, indicating a video is playing
+                video_playing = True
+                play_video(video_file_path)
+                # Reset the flag to False after the video is done
+                video_playing = False
