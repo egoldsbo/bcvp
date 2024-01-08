@@ -3,7 +3,14 @@ import os
 import threading
 
 def play_video(video_path):
-    play_command = ['cvlc', '--no-osd', '--fullscreen', video_path]
+    play_command = ['cvlc', 
+                    '--no-osd', 
+                    '--fullscreen', 
+                    '--play-and-exit',
+                     '--avcodec-hw=none', 
+                     '--file-caching=300', 
+                      '--no-audio', 
+                    video_path]
     subprocess.run(play_command)
 
 # Directory where the video files are stored
