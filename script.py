@@ -1,37 +1,45 @@
 import subprocess
 import os
-import threading
 
 def play_video(video_path):
+    # Command to play video using VLC in fullscreen mode
     play_command = ['cvlc', 
                     '--no-osd', 
+                    '--no-audio', 
                     '--fullscreen', 
+                    '--avcodec-hw=none',  # Disable hardware acceleration
+                    '--file-caching=300',  # Adjust file caching  # Enable hardware decoding
                     '--play-and-exit',
-                     '--avcodec-hw=none', 
-                     '--file-caching=300', 
-                      '--no-audio', 
                     video_path]
+
+    # Execute the command and wait for it to finish
     subprocess.run(play_command)
 
 # Directory where the video files are stored
+   
 video_directory = '/home/pi/bcvp/vids/'
 
-def start_video_thread(video_file_name):
-    video_file_path = os.path.join(video_directory, video_file_name) + '.mp4'
-    if os.path.exists(video_file_path):
-        threading.Thread(target=play_video, args=(video_file_path,)).start()
-    else:
-        print("Video file not found. Please try again.")
-
 while True:
+    # Prompt the user to enter the name of the video file
     video_file_name = input("Enter the name of the video file to play, 'git' to update, or 'exit' to quit: ")
 
+    # Check if the user wants to exit the program
     if video_file_name.lower() == 'exit':
         break
+
+    # Check if the user wants to run 'git pull'
     elif video_file_name.lower() == 'git':
-        subprocess.run(['sudo', 'git', 'stash'])
-        subprocess.run(['sudo', 'git', 'pull'])
-        subprocess.run(['sudo', 'chmod', '+x', '/home/pi/bcvp/startupscript.sh'])
-        subprocess.run(['sudo', 'chmod', '+x', '/home/pi/bcvp/script.py'])
+        # Run 'git pull' command
+        subprocess.run(['sudo','git', 'stash'])
+        subprocess.run(['sudo','git', 'pull'])
+        subprocess.run(['sudo','chmod','+x','/home/pi/bcvp/startupscript.sh'])
+        subprocess.run(['sudo','chmod','+x','/home/pi/bcvp/script.py'])
     else:
-        start_video_thread(video_file_name)
+        # Full path to the video file
+        video_file_path = os.path.join(video_directory, video_file_name) + '.mp4'
+
+        # Check if the file exists
+        if not os.path.exists(video_file_path):
+            print("Video file not found. Please try again.")
+        else:
+            play_video(video_file_path)
