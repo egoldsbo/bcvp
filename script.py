@@ -25,8 +25,8 @@ while True:
         # Run 'git pull' command
         subprocess.run(['sudo','git', 'stash'])
         subprocess.run(['sudo','git', 'pull'])
-        subprocess.run(['chmod','+x','/home/pi/bcvp/startupscript.sh'])
-        subprocess.run(['chmod','+x','/home/pi/bcvp/script.py'])
+        subprocess.run(['sudo','chmod','+x','/home/pi/bcvp/startupscript.sh'])
+        subprocess.run(['sudo','chmod','+x','/home/pi/bcvp/script.py'])
     else:
         # Full path to the video file
         video_file_path = os.path.join(video_directory, video_file_name) + '.mp4'
