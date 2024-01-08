@@ -5,11 +5,12 @@ def play_video(video_path):
     # Command to play video using VLC in fullscreen mode
         play_command = [
         'cvlc', 
-        '--no-osd', 
+        '--no-osd',
+        '--no-audio', 
         '--fullscreen', 
         '--play-and-exit', 
         '--avcodec-hw=none',  # Disable hardware acceleration
-        '--file-caching=300',  # Adjust file caching
+        '--file-caching=1000',  # Adjust file caching
         '--ffmpeg-skip-loop-filter=nonref',  # Skip loop filter for H.264
         video_path
     ]
