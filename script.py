@@ -3,7 +3,7 @@ import os
 
 def play_video(video_path):
     # Command to play video using VLC in fullscreen mode
-    play_command = ['cvlc', '--fullscreen', '--play-and-exit', video_path]
+    play_command = ['cvlc', '--no-osd', '--fullscreen', '--play-and-exit', video_path]
 
     # Execute the command and wait for it to finish
     subprocess.run(play_command)
