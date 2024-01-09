@@ -12,7 +12,7 @@ def play_video(video_path):
                     '--no-loop', 
                     video_path]
     # Execute the command and wait for it to finish
-    subprocess.run([play_command])
+    subprocess.run(play_command)
 
     # Wait for the video to end and then pause it
  
