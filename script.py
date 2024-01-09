@@ -10,16 +10,15 @@ def play_video(video_path):
                     '--avcodec-hw=none',  # Disable hardware acceleration
                     '--file-caching=1000',  # Adjust file caching
                     '--loop', 
-                    '--extraintf rc',
+                    
                                  # Loop the video
                       # Start paused to manually begin
                     video_path]
     # Execute the command and wait for it to finish
-    process = subprocess.Popen(play_command)
+    subprocess.Popen(play_command)
 
     # Wait for the video to end and then pause it
-    process.wait()
-    subprocess.run(['vlc', '--extraintf', 'rc', '--rc-pause'])
+ 
 
 
 # Directory where the video files are stored
