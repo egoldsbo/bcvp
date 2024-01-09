@@ -11,6 +11,7 @@ def play_video(video_path):
                     '--file-caching=100',  # Adjust file caching
                     '--no-loop',
                     '--play-and-exit',  # Exit VLC after playing the video
+                    video_path,
                     video_path]
     # Execute the command and wait for it to finish
     subprocess.run(play_command)
