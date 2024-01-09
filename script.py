@@ -3,13 +3,15 @@ import os
 
 def play_video(video_path):
     # Command to play video using VLC in fullscreen mode
-    play_command = ['cvlc',  # Using cvlc (command-line VLC)
+    play_command = ['vlc',  # Using cvlc (command-line VLC)
                     '--no-osd', 
                     '--no-audio', 
                     '--fullscreen', 
                     '--avcodec-hw=none',  # Disable hardware acceleration
                     '--file-caching=1000',  # Adjust file caching
-                    '--loop',              # Loop the video
+                    '--loop', 
+                    '--extraintf rc'
+                                 # Loop the video
                       # Start paused to manually begin
                     video_path]
     # Execute the command and wait for it to finish
