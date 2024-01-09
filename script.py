@@ -15,7 +15,7 @@ def play_video(video_path):
                       # Start paused to manually begin
                     video_path]
     # Execute the command and wait for it to finish
-    subprocess.Popen(play_command)
+    subprocess.runs(play_command)
 
     # Wait for the video to end and then pause it
  
