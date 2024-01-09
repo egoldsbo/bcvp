@@ -9,7 +9,6 @@ def play_video(video_path):
                     '--fullscreen', 
                     '--avcodec-hw=none',  # Disable hardware acceleration
                     '--file-caching=300',  # Adjust file caching
-                    '--play-and-exit',
                     video_path]
     #a change
     # Execute the command and wait for it to finish
