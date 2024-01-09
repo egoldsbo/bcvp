@@ -9,7 +9,7 @@ def play_video(video_path):
                     '--fullscreen', 
                     '--avcodec-hw=none',  # Disable hardware acceleration
                     '--file-caching=1000',  # Adjust file caching
-                    '--loop', 
+                    '--no-loop', 
                     
                                  # Loop the video
                       # Start paused to manually begin
