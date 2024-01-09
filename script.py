@@ -10,9 +10,6 @@ def play_video(video_path):
                     '--avcodec-hw=none',  # Disable hardware acceleration
                     '--file-caching=1000',  # Adjust file caching
                     '--no-loop', 
-                    
-                                 # Loop the video
-                      # Start paused to manually begin
                     video_path]
     # Execute the command and wait for it to finish
     subprocess.run([play_command])
