@@ -1,3 +1,4 @@
+#!/bin/bash
 cd /home/pi/bcvp
 sudo git stash
 sudo git pull
