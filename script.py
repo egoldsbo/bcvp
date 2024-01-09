@@ -33,11 +33,8 @@ while True:
 
         # Check if the user wants to run 'git pull'
         elif video_file_name.lower() == 'git':
-            subprocess.run(['sudo', 'git', 'stash'])
-            subprocess.run(['sudo', 'git', 'pull'])
-            subprocess.run(['sudo', 'chmod', '+x', '/home/pi/bcvp/startupscript.sh'])
-            subprocess.run(['sudo', 'chmod', '+x', '/home/pi/bcvp/script.py'])
-        
+            subprocess.run(['sudo', './gitscript.sh'])
+           
         else:
             # Full path to the video file
             video_file_path = os.path.join(video_directory, video_file_name) + '.mp4'
