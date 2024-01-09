@@ -7,7 +7,7 @@ def play_video(video_path):
                     '--no-osd', 
                     '--no-audio', 
                     '--fullscreen', 
-                    '--avcodec-hw=none',  # Disable hardware acceleration
+                    #'--avcodec-hw=none',  # Disable hardware acceleration
                     '--file-caching=100',  # Adjust file caching
                     '--no-loop',
                     '--play-and-exit',  # Exit VLC after playing the video
