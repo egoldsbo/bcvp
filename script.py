@@ -3,7 +3,7 @@ import os
 
 def play_video(video_path):
     # Command to play video using VLC in fullscreen mode
-    play_command = ['cvlc', 
+    play_command = ['vlc', 
                     '--no-osd', 
                     '--no-audio', 
                     '--fullscreen', 
