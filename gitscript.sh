@@ -1,5 +1,6 @@
 #!/bin/bash
 cd /home/pi/bcvp
+sudo git config --global --add safe.directory /home/pi/bcvp
 sudo git stash
 sudo git pull
 sudo chmod +x /home/pi/bcvp/startupscript.sh
