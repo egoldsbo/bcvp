@@ -13,7 +13,8 @@ def play_video(video_path):
                     '--play-and-exit',  # Exit VLC after playing the video
                     '/home/pi/bcvp/vids/blackscreen.mp4',  # Path to the video file
                     video_path,
-                    video_path]
+                    video_path,
+                    '>/dev/null 2>&1']
     # Execute the command and wait for it to finish
     subprocess.run(play_command)
 

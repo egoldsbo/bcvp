@@ -39,9 +39,21 @@ todo: set up wifi script.
 add more vids
 make cards
 add more vids
-storybook mode?
+storybook mode?;l
 add "again button"
 power on/off relay?
+
+
+vlcpulse audiooutput error: PulseAudio server connection failure
+main interface error: no suitable interface module
+main libvlc error:interface "globalhotkeys,none" initialization failed
+dummy interface: using the dummy interface module....
+gles2 generic error: parent window not available
+xcb generic error: window not available
+mmal_xsplitter vout display: try drm
+drm_vout generic: <<< OpenDrmVout: Fmt=DPV0
+drm_vout generic error: Failed to get xlease
+avcodec decoder: using DRM Video Accel for hardware decoding
 
 
 
