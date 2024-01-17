@@ -2,7 +2,7 @@ import subprocess
 import os
 
 def play_video(video_path, single_play=False):
-    play_command = ['vlc',  # Using cvlc (command-line VLC)
+    play_command = ['cvlc',  # Using cvlc (command-line VLC)
                     '--no-osd',
                     '--no-audio',
                     '--fullscreen',
@@ -17,7 +17,7 @@ def play_video(video_path, single_play=False):
     if not single_play:
         play_command.append(video_path)
 
-    play_command.append('>/dev/null 2>&1')
+    
 
     # Execute the command and wait for it to finish
     subprocess.run(play_command)

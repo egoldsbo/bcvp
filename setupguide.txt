@@ -1,3 +1,20 @@
+parts list:
+-5 inch HDMI screen
+https://www.amazon.com/dp/B07QB2FGSL?psc=1&ref=ppx_yo2ov_dt_b_product_details
+-Raspberry Pi Zero 2 w
+https://www.amazon.com/Raspberry-Pi-Zero-2W-Bluetooth/dp/B0C9TW4BNK/ref=sr_1_6?crid=3AWH3P2VGWGHM&dib=eyJ2IjoiMSJ9.hWCCH1wfQ_Q4IW8oxAd9j1GYjf-FWtIUBLRBkGy6n8auiKN4_t1OtBwaol5oidbP5E8Y1BYfV1pTl4qEeGB-ZXNldDeXe5rBG-yEUyNhyFdCYKSvef63gkbMm3avWjulOxzLkqrhwDnjR9lrhy3fFg.pyEp2pUlGqr55tugJWXvXulOfQQZ9SJ9U2RtrYR6N2g&dib_tag=se&keywords=raspberry+pi+zero+2+w&qid=1705188470&s=electronics&sprefix=raspberry+pi+zero+2+w%2Celectronics%2C149&sr=1-6
+-barcode scanner
+https://www.amazon.com/dp/B07CHJX2FB?ref=ppx_yo2ov_dt_b_product_details&th=1
+-mini->standard hdmi cable
+https://www.amazon.com/dp/B0791ZYM3D?ref=ppx_yo2ov_dt_b_product_details&th=1
+-SD card:
+https://www.amazon.com/dp/B09X7G85JC?ref=ppx_yo2ov_dt_b_product_details&th=1
+-internal rechargable battery (optional): 
+https://www.amazon.com/dp/B0C7RCW1LP?psc=1&ref=ppx_yo2ov_dt_b_product_details
+-solder iron, wires, hot glue gun etc....
+
+
+
 on raspberry pi
 if configuring for raspberry pi zero 2 w:
 after writing raspian os lite 32bit, go to sd card, and add

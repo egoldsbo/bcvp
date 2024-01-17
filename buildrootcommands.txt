@@ -3,7 +3,7 @@ cd buildroot
 make raspberrypizero2w_defconfig
 make all
 
-
+bb
 if works try:
 
 //create 'rootfs-overlay' folder in buildroot directory
