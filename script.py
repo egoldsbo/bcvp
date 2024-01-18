@@ -5,6 +5,7 @@ import RPi.GPIO as GPIO  # Import the GPIO library
 def setup_gpio():
     GPIO.setmode(GPIO.BCM)  # Use Broadcom SOC channel naming
     GPIO.setup(6, GPIO.OUT)  # Set GPIO 6 as an output
+    GPIO.output(6, GPIO.HIGH)  # Set GPIO 6 HIGH initially
 
 def play_video(video_path, single_play=False):
     # Set GPIO 6 LOW before playing the video
