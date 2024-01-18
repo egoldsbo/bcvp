@@ -1,6 +1,7 @@
 import subprocess
 import os
 import RPi.GPIO as GPIO  # Import the GPIO library
+import time  # Import the time module
 
 def setup_gpio():
     GPIO.setmode(GPIO.BCM)  # Use Broadcom SOC channel naming
@@ -10,6 +11,7 @@ def setup_gpio():
     GPIO.output(5, GPIO.HIGH)  # Set GPIO 6 HIGH initially
 
 def play_video(video_path, single_play=False):
+    global last_video_end_time  # Declare the global variable
     # Set GPIO 6 LOW before playing the video
     GPIO.output(6, GPIO.LOW)
     GPIO.output(5, GPIO.LOW)
@@ -35,16 +37,33 @@ def play_video(video_path, single_play=False):
     # Set GPIO 6 HIGH after playing the video
     GPIO.output(6, GPIO.HIGH)
     GPIO.output(5, GPIO.HIGH)
+    last_video_end_time = time.time()  # Update the time when the video ends
 
+def check_shutdown():
+    global last_video_end_time
+    while True:
+        current_time = time.time()
+        if current_time - last_video_end_time >= 30:  # 30 minutes = 1800 seconds
+            subprocess.run(['sudo', 'shutdown', 'now'])
+            break
+        time.sleep(60)  # Check every minute
 
 # Set up GPIO
 setup_gpio()
+
+# Initialize the last video end time to the current time
+last_video_end_time = time.time()
+
+# Start the shutdown check in a separate thread
+import threading
+shutdown_thread = threading.Thread(target=check_shutdown)
+shutdown_thread.start()
 
 # Directory where the video files are stored
 video_directory = '/home/pi/bcvp/vids/'
 
 # Array containing video file names to play only once
-single_play_videos = ['dinor.mp4','ddd.mp4']# Replace with actual video names
+single_play_videos = ['dinor.mp4', 'ddd.mp4']  # Replace with actual video names
 
 # Flag to indicate if a video is playing
 video_playing = False
