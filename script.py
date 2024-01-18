@@ -9,6 +9,8 @@ def setup_gpio():
     GPIO.output(6, GPIO.LOW)  # Set GPIO 6 HIGH initially
     GPIO.setup(5, GPIO.OUT)  # Set GPIO 6 as an output
     GPIO.output(5, GPIO.HIGH)  # Set GPIO 6 HIGH initially
+    GPIO.setup(13, GPIO.OUT)  # Set GPIO 6 as an output
+    GPIO.output(13, GPIO.HIGH)  # Set GPIO 6 HIGH initially
 
 def play_video(video_path, single_play=False):
     global last_video_end_time  # Declare the global variable
@@ -43,7 +45,7 @@ def check_shutdown():
     global last_video_end_time
     while True:
         current_time = time.time()
-        if current_time - last_video_end_time >= 30:  # 30 minutes = 1800 seconds
+        if current_time - last_video_end_time >= 1800:  # 30 minutes = 1800 seconds
             subprocess.run(['sudo', 'shutdown', 'now'])
             break
         time.sleep(60)  # Check every minute
