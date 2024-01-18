@@ -10,7 +10,7 @@ def listen_for_exit_command():
             break
 
 # Set the GPIO numbering mode
-GPIO.setmode(GPIO.BOARD) # or GPIO.BOARD
+GPIO.setmode(GPIO.BCM) # or GPIO.BOARD
 
 # Replace 17 with the GPIO pin number you want to use
 pin = 6 
