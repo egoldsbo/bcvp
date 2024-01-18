@@ -1,7 +1,15 @@
 import subprocess
 import os
+import RPi.GPIO as GPIO  # Import the GPIO library
+
+def setup_gpio():
+    GPIO.setmode(GPIO.BCM)  # Use Broadcom SOC channel naming
+    GPIO.setup(6, GPIO.OUT)  # Set GPIO 6 as an output
 
 def play_video(video_path, single_play=False):
+    # Set GPIO 6 LOW before playing the video
+    GPIO.output(6, GPIO.LOW)
+
     play_command = ['cvlc',  # Using cvlc (command-line VLC)
                     '--no-osd',
                     '--no-audio',
@@ -17,11 +25,15 @@ def play_video(video_path, single_play=False):
     if not single_play:
         play_command.append(video_path)
 
-    
-
     # Execute the command and wait for it to finish
     subprocess.run(play_command)
 
+    # Set GPIO 6 HIGH after playing the video
+    GPIO.output(6, GPIO.HIGH)
+
+
+# Set up GPIO
+setup_gpio()
 
 # Directory where the video files are stored
 video_directory = '/home/pi/bcvp/vids/'
@@ -37,6 +49,7 @@ while True:
         video_file_name = input("Enter the name of the video file to play, 'git' to update, or 'exit' to quit: ")
 
         if video_file_name.lower() == 'exit':
+            GPIO.cleanup()  # Clean up GPIO
             break
         elif video_file_name.lower() == 'git':
             subprocess.run(['sudo', './gitscript.sh'])
