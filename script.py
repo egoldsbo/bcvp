@@ -17,6 +17,7 @@ def play_video(video_path, single_play=False):
     # Set GPIO 6 LOW before playing the video
     GPIO.output(6, GPIO.HIGH)
     GPIO.output(5, GPIO.LOW)
+    GPIO.output(13, GPIO.LOW)
 
     play_command = ['cvlc',  # Using cvlc (command-line VLC)
                     '--no-osd',
@@ -39,6 +40,7 @@ def play_video(video_path, single_play=False):
     # Set GPIO 6 HIGH after playing the video
     GPIO.output(6, GPIO.LOW)
     GPIO.output(5, GPIO.HIGH)
+    GPIO.output(13, GPIO.HIGH)
     last_video_end_time = time.time()  # Update the time when the video ends
 
 def check_shutdown():
