@@ -1,83 +1,79 @@
 import subprocess
 import os
-import RPi.GPIO as GPIO  # Import the GPIO library
-import time  # Import the time module
+import RPi.GPIO as GPIO
+import time
+import threading
 
 def setup_gpio():
-    GPIO.setmode(GPIO.BCM)  # Use Broadcom SOC channel naming
-    GPIO.setup(6, GPIO.OUT)  # Set GPIO 6 as an output
-    GPIO.output(6, GPIO.LOW)  # Set GPIO 6 HIGH initially
-    GPIO.setup(5, GPIO.OUT)  # Set GPIO 6 as an output
-    GPIO.output(5, GPIO.HIGH)  # Set GPIO 6 HIGH initially
-    GPIO.setup(13, GPIO.OUT)  # Set GPIO 6 as an output
-    GPIO.output(13, GPIO.HIGH)  # Set GPIO 6 HIGH initially
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(6, GPIO.OUT)
+    GPIO.output(6, GPIO.LOW)
+    GPIO.setup(5, GPIO.OUT)
+    GPIO.output(5, GPIO.HIGH)
+    GPIO.setup(13, GPIO.OUT)
+    GPIO.output(13, GPIO.HIGH)
 
-def play_video(video_path, single_play=False):
-    global last_video_end_time  # Declare the global variable
-    # Set GPIO 6 LOW before playing the video
+def video_playback_thread(video_path, single_play):
+    global video_playing
     GPIO.output(6, GPIO.HIGH)
     GPIO.output(5, GPIO.LOW)
     GPIO.output(13, GPIO.LOW)
 
-    play_command = ['cvlc',  # Using cvlc (command-line VLC)
+    play_command = ['cvlc',
                     '--no-osd',
                     '--no-audio',
                     '--fullscreen',
-                    #'--avcodec-hw=none',  # Disable hardware acceleration
-                    '--file-caching=100',  # Adjust file caching
+                    '--file-caching=100',
                     '--no-loop',
-                    '--play-and-exit',  # Exit VLC after playing the video
-                    '/home/pi/bcvp/vids/blackscreen.mp4',  # Path to the video file
+                    '--play-and-exit',
+                    '/home/pi/bcvp/vids/blackscreen.mp4',
                     video_path]
 
-    # Add video_path again if not in single play mode
     if not single_play:
         play_command.append(video_path)
 
-    # Execute the command and wait for it to finish
     subprocess.run(play_command)
 
-    # Set GPIO 6 HIGH after playing the video
     GPIO.output(6, GPIO.LOW)
     GPIO.output(5, GPIO.HIGH)
     GPIO.output(13, GPIO.HIGH)
-    last_video_end_time = time.time()  # Update the time when the video ends
+
+    video_playing = False
+
+def play_video(video_path, single_play):
+    global video_playing, current_video_thread
+    video_playing = True
+    current_video_thread = threading.Thread(target=video_playback_thread, args=(video_path, single_play))
+    current_video_thread.start()
 
 def check_shutdown():
     global last_video_end_time
     while True:
         current_time = time.time()
-        if current_time - last_video_end_time >= 1800:  # 30 minutes = 1800 seconds
+        if current_time - last_video_end_time >= 1800:
             subprocess.run(['sudo', 'shutdown', 'now'])
             break
-        time.sleep(60)  # Check every minute
+        time.sleep(60)
 
-# Set up GPIO
 setup_gpio()
 
-# Initialize the last video end time to the current time
 last_video_end_time = time.time()
 
-# Start the shutdown check in a separate thread
-import threading
 shutdown_thread = threading.Thread(target=check_shutdown)
 shutdown_thread.start()
 
-# Directory where the video files are stored
-video_directory = '/home/pi/bcvp/vids/'
+video_directory = './vids/'
+single_play_videos = ['dinor', 'ddd']
 
-# Array containing video file names to play only once
-single_play_videos = ['dinor.mp4', 'ddd.mp4']  # Replace with actual video names
-
-# Flag to indicate if a video is playing
 video_playing = False
+current_video_thread = None
 
 while True:
     if not video_playing:
         video_file_name = input("Enter the name of the video file to play, 'git' to update, or 'exit' to quit: ")
 
         if video_file_name.lower() == 'exit':
-            GPIO.cleanup()  # Clean up GPIO
+            GPIO.cleanup()
             break
         elif video_file_name.lower() == 'git':
             subprocess.run(['sudo', './gitscript.sh'])
@@ -87,8 +83,16 @@ while True:
             if not os.path.exists(video_file_path):
                 print("Video file not found. Please try again.")
             else:
-                video_playing = True
-                # Check if the video is in the single play list
                 single_play = video_file_name in single_play_videos
                 play_video(video_file_path, single_play)
-                video_playing = False
+    else:
+        if current_video_thread.is_alive():
+            new_video_file_name = input("Enter the name of a new video file to play or 'skip' to continue current: ")
+            if new_video_file_name.lower() != 'skip':
+                current_video_thread.join()
+                video_file_path = os.path.join(video_directory, new_video_file_name) + '.mp4'
+                if os.path.exists(video_file_path):
+                    single_play = new_video_file_name in single_play_videos
+                    play_video(video_file_path, single_play)
+
+    time.sleep(1)
