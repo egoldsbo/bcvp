@@ -18,7 +18,7 @@ https://www.amazon.com/dp/B0C7RCW1LP?psc=1&ref=ppx_yo2ov_dt_b_product_details
 on raspberry pi
 if configuring for raspberry pi zero 2 w:
 after writing raspian os lite 32bit, go to sd card, and add
-./...............................................................................................................///////////////////////////////////.//////////////////////////////////////////////////////////////////////////////////////////////////////////////././//////////////video=HDMI-A-1:800x480M@24,rotate=0
+video=HDMI-A-1:800x480M@24,rotate=0
 to the begining of cmdline.txt
 
 install dependencies and clone project:

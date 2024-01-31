@@ -14,10 +14,9 @@ def setup_gpio():
     GPIO.output(13, GPIO.HIGH)
 
 def video_playback_thread(video_path, single_play):
-    global video_playing
+    global video_playing, current_process
     GPIO.output(6, GPIO.HIGH)
     GPIO.output(5, GPIO.LOW)
-    GPIO.output(13, GPIO.LOW)
 
     play_command = ['cvlc',
                     '--no-osd',
@@ -29,15 +28,13 @@ def video_playback_thread(video_path, single_play):
                     '/home/pi/bcvp/vids/blackscreen.mp4',
                     video_path]
 
-    if not single_play:
-        play_command.append(video_path)
+    
 
-    subprocess.run(play_command)
+    current_process = subprocess.Popen(play_command)
+    current_process.wait()
 
     GPIO.output(6, GPIO.LOW)
     GPIO.output(5, GPIO.HIGH)
-    GPIO.output(13, GPIO.HIGH)
-
     video_playing = False
 
 def play_video(video_path, single_play):
@@ -58,6 +55,10 @@ def check_shutdown():
 setup_gpio()
 
 last_video_end_time = time.time()
+current_process = None
+video_playing = False
+current_video_thread = None
+current_video_name = ''  # Track the name of the currently playing video
 
 shutdown_thread = threading.Thread(target=check_shutdown)
 shutdown_thread.start()
@@ -65,12 +66,9 @@ shutdown_thread.start()
 video_directory = './vids/'
 single_play_videos = ['dinor', 'ddd']
 
-video_playing = False
-current_video_thread = None
-
 while True:
     if not video_playing:
-        video_file_name = input("Enter the name of the video file to play, 'git' to update, or 'exit' to quit: ")
+        video_file_name = input("Enter the name of the video file to play, 'git' to update, or 'exit' to quit: ").strip()
 
         if video_file_name.lower() == 'exit':
             GPIO.cleanup()
@@ -84,15 +82,20 @@ while True:
                 print("Video file not found. Please try again.")
             else:
                 single_play = video_file_name in single_play_videos
+                current_video_name = video_file_name
                 play_video(video_file_path, single_play)
     else:
         if current_video_thread.is_alive():
-            new_video_file_name = input("Enter the name of a new video file to play or 'skip' to continue current: ")
+            new_video_file_name = input("Enter the name of a new video file to play or 'skip' to continue current: ").strip()
             if new_video_file_name.lower() != 'skip':
-                current_video_thread.join()
-                video_file_path = os.path.join(video_directory, new_video_file_name) + '.mp4'
+                if current_video_name in single_play_videos:
+                    if current_process is not None:
+                        current_process.terminate()
+                    current_video_thread.join()
+                current_video_name = new_video_file_name
+                video_file_path = os.path.join(video_directory, current_video_name) + '.mp4'
                 if os.path.exists(video_file_path):
-                    single_play = new_video_file_name in single_play_videos
+                    single_play = current_video_name in single_play_videos
                     play_video(video_file_path, single_play)
 
     time.sleep(1)
